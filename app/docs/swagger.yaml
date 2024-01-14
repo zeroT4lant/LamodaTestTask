@@ -1,0 +1,218 @@
+definitions:
+  controller.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  controller.Product:
+    properties:
+      code:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      quantity:
+        type: integer
+      size:
+        type: number
+      warehouse_id:
+        type: integer
+    type: object
+  controller.Warehouse:
+    properties:
+      id:
+        type: integer
+      is_available:
+        type: boolean
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /create-product:
+    post:
+      consumes:
+        - application/json
+      description: Create a new product on a specified warehouse.
+      parameters:
+        - description: Product information
+          in: body
+          name: product
+          required: true
+          schema:
+            $ref: '#/definitions/controller.Product'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Product created
+          schema:
+            type: string
+        "400":
+          description: Invalid request format
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Create a new product.
+      tags:
+        - products
+  /create-warehouse:
+    post:
+      consumes:
+        - application/json
+      description: Create a new warehouse in the database.
+      parameters:
+        - description: Warehouse information
+          in: body
+          name: warehouse
+          required: true
+          schema:
+            $ref: '#/definitions/controller.Warehouse'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Warehouse created
+          schema:
+            type: string
+        "400":
+          description: Invalid request format
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Create a new warehouse.
+      tags:
+        - warehouses
+  /delete-product/:id:
+    delete:
+      consumes:
+        - application/json
+      description: Delete a product by its ID.
+      parameters:
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Product deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request format
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Delete a product
+      tags:
+        - products
+  /release-products:
+    post:
+      consumes:
+        - application/json
+      description: Releases reserved products and updates their quantities
+      parameters:
+        - description: Product codes
+          in: query
+          items:
+            type: string
+          name: productCodes
+          required: true
+          type: array
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Releases products
+      tags:
+        - products
+  /remaining-products/:warehouseID:
+    get:
+      consumes:
+        - application/json
+      description: Returns the remaining products in the warehouse
+      parameters:
+        - description: Warehouse ID
+          in: query
+          name: warehouseID
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controller.Product'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Returns remaining products
+      tags:
+        - products
+  /reserve-products:
+    post:
+      consumes:
+        - application/json
+      description: Reserves products and updates their quantities
+      parameters:
+        - description: Product codes
+          in: query
+          items:
+            type: string
+          name: productCodes
+          required: true
+          type: array
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Reserves products
+      tags:
+        - products
+swagger: "2.0"
