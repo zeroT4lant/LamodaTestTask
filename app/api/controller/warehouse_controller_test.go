@@ -8,6 +8,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// work
 func TestCreateWarehouse(t *testing.T) {
 	// Коннектимся к базе
 	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=secret dbname=lamoda_test sslmode=disable")
@@ -34,6 +35,7 @@ func TestCreateWarehouse(t *testing.T) {
 	}
 }
 
+// work
 func TestCreateProduct(t *testing.T) {
 	// Подключаемся к базе
 	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=secret dbname=lamoda_test sslmode=disable")
@@ -75,6 +77,7 @@ func TestCreateProduct(t *testing.T) {
 	}
 }
 
+// work
 func TestReserveProductsEmptyProductCodes(t *testing.T) {
 	// Подключаемся к базе
 	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=secret dbname=lamoda_test sslmode=disable")
@@ -89,6 +92,7 @@ func TestReserveProductsEmptyProductCodes(t *testing.T) {
 	}
 }
 
+// work
 func TestReserveProductsInvalidProductCode(t *testing.T) {
 	// Подключаемся к базе
 	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=secret dbname=lamoda_test sslmode=disable")
@@ -127,6 +131,7 @@ func TestReserveProductsInvalidProductCode(t *testing.T) {
 	}
 }
 
+// work
 func TestReserveProductsProductOutOfStock(t *testing.T) {
 	// Подключаемся к базе
 	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=secret dbname=lamoda_test sslmode=disable")

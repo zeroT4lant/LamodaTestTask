@@ -3,7 +3,7 @@ POST http://localhost:8080/create-warehouse HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "2",
+  "name": "third_warehouse",
   "is_available": true
 }
 
@@ -13,9 +13,9 @@ POST http://localhost:8080/create-product
 Content-Type: application/json
 
 {
-  "name": "Product 3",
-  "size": 12.34,
-  "code": "ABC12311",
+  "name": "Адидас подкрадули",
+  "size": "46",
+  "code": "newUniqCode",
   "quantity": 56,
   "warehouse_id": 2
 }
@@ -24,13 +24,13 @@ Content-Type: application/json
 ### ReserveProducts
 POST http://localhost:8080/reserve-products HTTP/1.1
 Content-Type: application/json
-["ABC123", "ABC1231"]
+["ABC123","345678","notUniqCode"]
 
 
 ### ReleaseProducts
 POST http://localhost:8080/release-products HTTP/1.1
 Content-Type: application/json
-["ABC123", "ABC1231"]
+["ABC123","345678","notUniqCode"]
 
 
 ### GetRemainingProducts
@@ -38,4 +38,4 @@ GET http://localhost:8080/remaining-products/2
 
 
 ### DeleteProduct
-DELETE http://localhost:8080/delete-product/5
+DELETE http://localhost:8080/delete-product/4
