@@ -19,24 +19,29 @@ import (
 )
 
 type App struct {
-	//cfg        *config.Config
 	router     *gin.Engine
 	httpServer *http.Server
 	pgClient   *sql.DB
 }
 
 func NewApp(ctx context.Context) (*App, error) {
-	err := godotenv.Load("app.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
+	//POSTGRES_USER=postgres
+	//POSTGRES_PASS=secret
+	//POSTGRES_NAME=lamoda_db
+	//POSTGRES_HOST=localhost
+	//POSTGRES_PORT=5431
+
 	db, err := postgres.NewPostgresDB(&postgres.Config{
-		Username: "postgres",
+		Username: os.Getenv("POSTGRES_USER"),
 		Password: os.Getenv("POSTGRES_PASS"),
-		Host:     "localhost",
-		Port:     "5439",
-		Database: "lamoda_db",
+		Host:     os.Getenv("POSTGRES_HOST"),
+		Port:     os.Getenv("POSTGRES_PORT"),
+		Database: os.Getenv("POSTGRES_NAME"),
 		SSLMode:  "disable",
 	})
 

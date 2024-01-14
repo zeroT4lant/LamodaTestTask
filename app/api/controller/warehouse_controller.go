@@ -238,7 +238,7 @@ func ReleaseProducts(db *sql.DB, productCodes []string) error {
 // GetRemainingProducts возвращает оставшееся количество продуктов на складе
 func GetRemainingProducts(db *sql.DB, warehouseID int) ([]Product, error) {
 	// Проходимся по строкам, возвращенным запросом, и добавляем каждую строку к слайсу продуктов.
-	rows, err := db.Query("SELECT code, quantity FROM products WHERE warehouse_id = $1", warehouseID)
+	rows, err := db.Query("SELECT id, name, size, code, quantity FROM products WHERE warehouse_id = $1", warehouseID)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func GetRemainingProducts(db *sql.DB, warehouseID int) ([]Product, error) {
 	var products []Product
 	for rows.Next() {
 		var p Product
-		if err := rows.Scan(&p.Code, &p.Quantity); err != nil {
+		if err := rows.Scan(&p.ID, &p.Name, &p.Size, &p.Code, &p.Quantity); err != nil {
 			return nil, err
 		}
 		p.WarehouseID = warehouseID

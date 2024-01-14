@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres-db:
+    restart: always
+    image: postgres:15.3-bullseye
+    environment:
+      POSTGRES_HOST_AUTH_METHOD : trust
+      POSTGRES_USER : ${POSTGRES_USER}
+      POSTGRES_PASS : ${POSTGRES_PASS}
+      POSTGRES_NAME : ${POSTGRES_NAME}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5431:5432"
+    volumes:
+      - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: runner
+    ports:
+      - "8080:8080"
+    environment:
+      POSTGRES_USER : ${POSTGRES_USER}
+      POSTGRES_PASS : ${POSTGRES_PASS}
+      POSTGRES_NAME : ${POSTGRES_NAME}
+      POSTGRES_HOST : ${POSTGRES_HOST}
+      POSTGRES_PORT : ${POSTGRES_PORT}
+    depends_on:
+      - postgres-db
+
+
+volumes:
+  db:
+    driver: local
