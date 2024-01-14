@@ -24,7 +24,7 @@ Content-Type: application/json
 ### ReserveProducts
 POST http://localhost:8080/reserve-products HTTP/1.1
 Content-Type: application/json
-["ABC123","345678","notUniqCode"]
+["ABC123","345678","adsw"]
 
 
 ### ReleaseProducts

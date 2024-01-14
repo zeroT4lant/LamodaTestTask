@@ -7,6 +7,7 @@ import (
 	"log"
 )
 
+// Точка старта приложения в методе Run()
 func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())

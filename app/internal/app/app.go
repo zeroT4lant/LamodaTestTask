@@ -34,7 +34,7 @@ func NewApp(ctx context.Context) (*App, error) {
 	//POSTGRES_PASS=secret
 	//POSTGRES_NAME=lamoda_db
 	//POSTGRES_HOST=localhost
-	//POSTGRES_PORT=5431
+	//POSTGRES_PORT=5432
 
 	db, err := postgres.NewPostgresDB(&postgres.Config{
 		Username: os.Getenv("POSTGRES_USER"),

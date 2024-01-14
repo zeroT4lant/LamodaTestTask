@@ -33,7 +33,7 @@ func NewRouter(db *sql.DB) *gin.Engine {
 	// Обработчик для создания нового склада
 	r.POST("/create-warehouse", func(c *gin.Context) {
 		// Считываем данные склада из тела запроса
-		wh := controller.Warehouse{}
+		var wh controller.Warehouse
 		err := c.BindJSON(&wh)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid warehouse data"})

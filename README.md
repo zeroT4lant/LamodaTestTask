@@ -26,6 +26,7 @@
     );
 
 *В папке docs можно найти описание методов приложения в виде скиншотов Swagger. Путь "app/docs"
+*На страницу-документацию Swagger можно зайти по адресу "http://localhost:8080/swagger/index.html"
 
 *Тесты на все функции можно найти по пути "app/api/controller/warehouse_controller_test.go"
 
